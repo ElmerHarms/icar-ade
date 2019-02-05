@@ -4,9 +4,9 @@ Also noted is if we would like to have the event pushed (whole message is pushed
 
 Event | Description | Standard Status |Source | Source Status | Target | Target Status | Push/Pull | Milestone
 --- | --- | --- | --- | --- | --- | --- | --- | --- |
-milking-visits ||| lely | p2p | crv | p2p | push | 1
-milking-lab-results |ijk data?|| crv | crv->lely | lely | crv->lely | pull |1
-weights ||| lely, gallagher | p2p | crv, bms | p2p | pull |1
+milking-visits |Individual milkings collected by the milking machine|| lely | p2p | crv | p2p | push | 1
+milking-lab-results |calibration data|| crv | crv->lely | lely | crv->lely | pull |1
+weights |individual cow weights collected by farm hardware|| lely, gallagher | p2p | crv, bms | p2p | pull |1
 teat-coordinates ||| lely | p2p | crv, bms | p2p | pull |1
 herd-list(-movements) (generic) ||| lely, crv | crv->lely | lely, crv | crv->lely | notify, pull | 2
 herd-list-movements (I&R, births) ||| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2

@@ -1,0 +1,409 @@
+swagger: "2.0"
+
+# This is your document metadata
+info:
+  version: "1.0"
+  title: ICAR - LELY - CRV - JOINDATA API
+  description: |
+    ## The ICAR  domain
+    We will document the standard for ICAR.
+
+
+    ## Topics in this domain are :
+
+    We provide API's for the following resources:
+
+    1) milking visits
+
+
+################################################################################
+#                  Host, Base Path, Schemes and Content Types                  #
+################################################################################
+host: api.icar.com
+basePath: /icar
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Animal Events
+    description: |
+      Animalevents.
+
+
+################################################################################
+#                                  Security                                    #
+################################################################################
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: access_token
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+#------------------------------------------------------------------------------#
+#                                 Definition of attributes in the path         #
+#------------------------------------------------------------------------------#
+  InQuery_herd-id:
+    name: herd-id
+    in: query
+    required: true
+    description: the technical, non-meaningful and unique identification code of a location
+    type: string
+  InQuery_animal-id:
+    name: animal-id
+    in: query
+    required: false
+    description: the technical, non-meaningful and unique identification code of an animal
+    type: string
+  InQuery_modified-since:
+    name: modified-since
+    in: query
+    required: false
+    description: ISO8601 date format 2018-07-19T23:00:08+00:00
+    type: string
+  InQuery_event-date:
+    name: event-date
+    in: query
+    required: false
+    description: ISO8601 date format 2018-07-19T23:00:08+00:00
+    type: string
+  InQuery_skip:
+    name: skip
+    in: query
+    required: false
+    description: The number of items to skip before starting to collect the result set
+    type: integer
+  InQuery_take:
+    name: take
+    in: query
+    required: false
+    description: The number of items to collect
+    type: integer
+
+
+################################################################################
+#                                 Standard HTTP Response                       #
+################################################################################
+
+################################################################################
+#                                 Definitions  (attributes)                    #
+################################################################################
+definitions:
+  id:
+    type: string
+    description: |
+      The technical, non-meaningful and unique identification code of an object.
+  url:
+    type: string
+    description: |
+      The url of the resource.
+  herdEvent:
+    type: string
+    description: |
+      If this event was one of a group recorded simultaneously, the herdEvent relates the individual events
+  eventDate:
+    type: string
+    description: |
+      ISO8601 date format 2018-07-19T23:00:08+00:00. The date that the event occured
+  notes:
+    type: string
+    description: |
+      any notes related to the event
+  dateTime:
+    type: string
+    description: |
+      A date-time of when something occured : ISO8601 date format 2018-07-19T23:00:08+00:00.
+    format: date-time
+  trueOrFalse:
+    type: boolean
+    description: true or false
+  exception:
+    type: string
+    description: Exception code that occurred during the milking
+  mode:
+    type: string
+    description: Mode that the milking was done (Manual or Robotic)
+  duration:
+    type: number
+    description : duration of the milking
+  rack:
+    type: integer
+    description: The number of the sample rack, Mandatory if the sample is taken.
+  extraLely:
+    type: integer
+    description: elements found in Lely API that might be interesting.
+  unknown:
+    type: string
+    description: Not yet defined by Andrew
+  avgCond:
+    type: number
+    description: Average conductivity value of the milk at 25 degrees Celsius (mS/cm)
+  maxCond:
+    type: number
+    description: Maximum conductivity value of the milk at 25 degrees Celsius (mS/cm)
+  brb:
+    type: number
+    description: Value for Beta hydroxybutyrate (mmol/l)
+  ecmMilk:
+    type: integer
+    description: Energy corrected milk yield per day (kg)
+  fat:
+    type: number
+    description: fat percentage
+  lac:
+    type: number
+    description: lactose percentage
+  ldh:
+    type: number
+    description: Value for Lactate dehydrogenase (IU/l)
+  pro:
+    type: number
+    description: Value for Progesteron (mmol/l)
+  protein:
+    type: number
+    description: protein percentage
+  scc:
+    type: number
+    description: Value for Somatic cell count (x1000 cells/ml)
+  urea:
+    type: integer
+    description: Value for Urea (ppm, mg/l)
+  quarter:
+    type: string
+    description: Which Quarter this Milking result is for (Front-Left, Front-Right, Rear-Left, Rear-Right or None)
+  bottlePosition:
+    type: string
+    description: positioning of the bottle (vial) in the sample rack
+  concentrate:
+    type: number
+    description: Amount of concentrate given on SampleDate in Kg
+  weight:
+    type: number
+    description: Weight of the milk from this milking
+#------------------------------------------------------------------------------#
+#                                 Definition of result entities                #
+#------------------------------------------------------------------------------#
+
+  ICARMilkingEvent:
+    type: object
+    properties:
+      milkingEventUrl:
+        $ref: "#/definitions/url"
+      event:
+        $ref: "#/definitions/ICARAnimalEventCore"
+      sampleId:
+        $ref: "#/definitions/id"
+      sampleTaken:
+        $ref: "#/definitions/trueOrFalse"
+      sample:
+        $ref: "#/definitions/Sample"
+      testMilkException:
+        $ref: "#/definitions/exception"
+      milkingMode:
+        $ref: "#/definitions/mode"
+      startTime:
+        $ref: "#/definitions/dateTime"
+      end Time:
+        $ref: "#/definitions/dateTime"
+      duration:
+        $ref: "#/definitions/duration"
+      milkingSuccess:
+         $ref: "#/definitions/trueOrFalse"
+      milkSpeed:
+         $ref: "#/definitions/extraLely"
+      milkSpeedMax:
+         $ref: "#/definitions/extraLely"
+      rackNumber: 
+         $ref: "#/definitions/rack"
+      dairyMilkingResult:
+         $ref: "#/definitions/DairyMilkingResult"
+      quarterResults:
+        type: array
+        items:
+          $ref: "#/definitions/QuarterResult"
+      labAnalysisDetails:
+        $ref: "#/definitions/labAnalysisDetails"
+
+        
+  ICARAnimalEventCore:
+    type: object
+    properties:
+      eventId:
+        $ref: "#/definitions/id"
+      animal:
+        $ref: "#/definitions/ICARMilkingAnimalCore"
+      herdEvent:
+        $ref: "#/definitions/herdEvent"
+      eventDate:
+        $ref: "#/definitions/eventDate"
+      notes:
+        $ref: "#/definitions/notes"
+      reference:
+        $ref: "#/definitions/id"
+      meta:
+        $ref: "#/definitions/ICARObjectMetaData"
+        
+  ICARMilkingAnimalCore:
+    type: object
+    properties:
+      animalId:
+        $ref: "#/definitions/id"
+      
+  ICARObjectMetaData:
+    type: object
+    properties:
+      modified: 
+        $ref: "#/definitions/dateTime"
+      created: 
+        $ref: "#/definitions/dateTime"
+      creator: 
+        $ref: "#/definitions/url"
+      source: 
+        $ref: "#/definitions/url"
+      validFrom: 
+        $ref: "#/definitions/dateTime"
+      validTo: 
+        $ref: "#/definitions/dateTime"
+
+  Sample:
+    type: object
+    properties:
+      dairyMilkingSamplIid:
+        $ref: "#/definitions/id"
+      acetone:
+        $ref: "#/definitions/id"
+      averageConductivity:
+        $ref: "#/definitions/avgCond"
+      betaHydroxyButyricAcid:
+        $ref: "#/definitions/brb"
+      blood:
+        $ref: "#/definitions/trueOrFalse"
+      ecmMilk:
+        $ref: "#/definitions/ecmMilk"
+      fat:
+        $ref: "#/definitions/fat"
+      lac:
+        $ref: "#/definitions/lac"
+      ldh:
+        $ref: "#/definitions/ldh"
+      maximumConductivity:
+        $ref: "#/definitions/maxCond"
+      progesteron:
+        $ref: "#/definitions/pro"
+      protein:
+        $ref: "#/definitions/protein"
+      scc:
+        $ref: "#/definitions/scc"
+      urea:
+        $ref: "#/definitions/urea"
+ 
+  DairyMilkingResult:
+    type: object
+    properties:
+      milkingEventId:
+        $ref: "#/definitions/id"
+      quarterType:
+        $ref: "#/definitions/quarter"
+      bottleIdentifer:
+        $ref: "#/definitions/id"
+      bottlePosition:
+        $ref: "#/definitions/bottlePosition"
+      concentrate:
+        $ref: "#/definitions/concentrate"
+      measureDeviceId:
+        $ref: "#/definitions/id"
+      milkingBoxNumber:
+        $ref: "#/definitions/id"
+      milkWeight:
+        $ref: "#/definitions/weight"
+      parlorUnit:
+        $ref: "#/definitions/id"
+      averageFlowRate:
+        $ref: "#/definitions/id"
+      maxFlowRate:
+        $ref: "#/definitions/id"
+  
+  QuarterResult:
+    type: object
+    properties:
+      LFMilkTime:
+        $ref: "#/definitions/extraLely"
+      LRMilkTime:
+        $ref: "#/definitions/extraLely"
+      RFMilkTime:
+        $ref: "#/definitions/extraLely"
+      RRMilkTime:
+        $ref: "#/definitions/extraLely"
+      LFDeadMilkTime:
+        $ref: "#/definitions/extraLely"
+      LRDeadMilkTime:
+        $ref: "#/definitions/extraLely"
+      RFDeadMilkTime:
+        $ref: "#/definitions/extraLely"
+      RRDeadMilkTime:
+        $ref: "#/definitions/extraLely"
+      LFXPosition:
+        $ref: "#/definitions/extraLely"
+      LFYPosition:
+        $ref: "#/definitions/extraLely"
+      LFZPosition:
+        $ref: "#/definitions/extraLely"
+      RFXPosition:
+        $ref: "#/definitions/extraLely"
+      RFYPosition:
+        $ref: "#/definitions/extraLely"
+      RFZPosition:
+        $ref: "#/definitions/extraLely"
+      LRXPosition:
+        $ref: "#/definitions/extraLely"
+      LRYPosition:
+        $ref: "#/definitions/extraLely"
+      LRZPosition:
+        $ref: "#/definitions/extraLely"
+      RRXPosition:
+        $ref: "#/definitions/extraLely"
+      RRYPosition:
+        $ref: "#/definitions/extraLely"
+      RRZPosition:
+        $ref: "#/definitions/extraLely"
+
+  labAnalysisDetails:
+    type: object
+    properties:
+      Unknown: 
+        $ref: "#/definitions/unknown"
+        
+#########################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+
+  /herds/animal-events/MilkingEvents:
+    get:
+      tags:
+        - Animal Events
+      description:
+        Retrieve milking information for a herd,
+      parameters:
+        - $ref: "#/parameters/InQuery_herd-id"
+        - $ref: "#/parameters/InQuery_animal-id"
+        - $ref: "#/parameters/InQuery_event-date"
+        - $ref: "#/parameters/InQuery_modified-since"
+        - $ref: "#/parameters/InQuery_skip"
+        - $ref: "#/parameters/InQuery_take"
+      responses:
+        200:
+          description: a list of milking events. 
+          schema:
+            type: array
+            items:
+               $ref: "#/definitions/ICARMilkingEvent"

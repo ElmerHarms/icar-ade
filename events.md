@@ -4,23 +4,23 @@ Also noted is if we would like to have the event pushed (whole message is pushed
 
 Event | Description | Standard Status |Source | Source Status | Target | Target Status | Push/Pull | Milestone
 --- | --- | --- | --- | --- | --- | --- | --- | --- |
-milking-visits |Individual milkings collected by the milking machine|| lely | p2p | crv | p2p | push | 1
+milking-visits |Individual milkings collected by the milking machine|https://test.join-data.net/api/docs#broker-api, under proposed| lely | p2p | crv | p2p | push | 1
 milking-lab-results |calibration data|| crv | crv->lely | lely | crv->lely | pull |1
-weights |individual cow weights collected by farm hardware|| lely, gallagher | p2p | crv, bms | p2p | pull |1
+weights |individual cow weights collected by farm hardware|https://integration.join-data.net/api/docs#broker-api, under implemented| lely, gallagher | p2p | crv, bms | p2p | pull |1
 teat-coordinates ||| lely | p2p | crv, bms | p2p | pull |1
-herd-list(-movements) (generic) ||| lely, crv | crv->lely | lely, crv | crv->lely | notify, pull | 2
-herd-list-movements (I&R, births) ||| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
-herd-list-movements (I&R, deaths) ||| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
-herd-list-movements (I&R, arrivals) ||| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
-herd-list-movements (I&R, departures) ||| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
-heat-report | actual report || bms, scr, nedap, crv-vm... | misc | crv, lely, bms |  | push, notify, pull |3
-heat-activities | graph data  || scr, nedap | misc | crv, lely, bms |  | push, notify, pull |3
-health-report | actual report|| bms, scr, nedap, crv-vm... | misc | crv, lely, bms |  | push, notify, pull |3
-health-activities | actual report|| scr, nedap | misc | crv, lely, bms |  | push, notify, pull |3
+herd-list(-movements) (generic) ||https://test.join-data.net/api/docs#broker-api, under proposed| lely, crv | crv->lely | lely, crv | crv->lely | notify, pull | 2
+herd-list-movements (I&R, births) ||https://test.join-data.net/api/docs#broker-api, under proposed| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
+herd-list-movements (I&R, deaths) ||https://test.join-data.net/api/docs#broker-api, under proposed| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
+herd-list-movements (I&R, arrivals) ||https://test.join-data.net/api/docs#broker-api, under proposed| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
+herd-list-movements (I&R, departures) ||https://test.join-data.net/api/docs#broker-api, under proposed| lely, bms, crv, rvo | lely->crv->rvo | lely, bms, crv, rvo | lely->crv->rvo | notify, pull |2
+heat-report | actual report |https://integration.join-data.net/api/docs#broker-api, under implemented| bms, scr, nedap, crv-vm... | misc | crv, lely, bms |  | push, notify, pull |3
+heat-activities | graph data  |https://integration.join-data.net/api/docs#broker-api, under implemented| scr, nedap | misc | crv, lely, bms |  | push, notify, pull |3
+health-report | actual report|https://integration.join-data.net/api/docs#broker-api, under implemented| bms, scr, nedap, crv-vm... | misc | crv, lely, bms |  | push, notify, pull |3
+health-activities | actual report|https://integration.join-data.net/api/docs#broker-api, under implemented| scr, nedap | misc | crv, lely, bms |  | push, notify, pull |3
 treatments | medical treatments, medicines, .. || lely,crv,bms | - | lely,crv,bms | - | push, notify, pull |3
-inseminations ||| crv, lely, bms | crv<->lely | crv, lely, bms | crv<->lely | pull |3
+inseminations ||https://integration.join-data.net/api/docs#broker-api, under implemented| crv, lely, bms | crv<->lely | crv, lely, bms | crv<->lely | pull |3
 drying-offs ||| crv, lely, bms, ... |  | crv, lely, bms, ... |  | notify, pull |3
-pregnancy-checks ||| crv, lely, bms | crv<->lely | crv, lely, bms | crv<->lely | pull |3
+pregnancy-checks ||https://integration.join-data.net/api/docs#broker-api, under implemented| crv, lely, bms | crv<->lely | crv, lely, bms | crv<->lely | pull |3
 abortions ||| crv, lely, bms | crv<->lely | crv, lely, bms | crv<->lely | pull |3
 parturitions | geboorteverloop, bijzonderheden, verlossingsdata || crv, lely, bms | crv<->lely | crv, lely, bms | crv<->lely | pull |3
 natural-services ||| crv, lely, bms | crv<->lely | crv, lely, bms | crv<->lely | pull |3
